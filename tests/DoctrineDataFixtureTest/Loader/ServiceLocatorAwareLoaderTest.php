@@ -32,26 +32,6 @@ use DoctrineDataFixtureModule\Loader\ServiceLocatorAwareLoader;
  */
 class ServiceLocatorAwareLoaderTest extends \PHPUnit_Framework_TestCase
 {
-
-    /**
-     * Ensures that ServiceLocatorAwareLoader does not affect loading of 
-     * fixtures that are not SL-aware
-     */
-    public function testLoadingFixtureWhichIsNotServiceLocatorAware()
-    {
-        $fixtureClassName = 'DoctrineDataFixtureTest\TestAsset\Fixtures\NoSL\FixtureA';
-        $serviceLocator = new ServiceManager(new ServiceManagerConfig());
-        
-        $loader = new ServiceLocatorAwareLoader($serviceLocator);
-        $loader->loadFromDirectory(__DIR__ . '/../TestAsset/Fixtures/NoSL');
-        $fixtures = $loader->getFixtures();
-        
-        $this->assertArrayHasKey($fixtureClassName, $fixtures);
-        $fixture = $fixtures[$fixtureClassName];
-        $this->assertInstanceOf('Doctrine\Common\DataFixtures\FixtureInterface', $fixture);
-        $this->assertNotInstanceOf('Zend\ServiceManager\ServiceLocatorAwareInterface', $fixture);
-    }
-    
     /**
      * Ensures that the Service Locator instance passed into the ServiceLocatorAwareLoader
      * actually makes it to the SL-aware fixtures loaded
@@ -59,7 +39,7 @@ class ServiceLocatorAwareLoaderTest extends \PHPUnit_Framework_TestCase
     public function testLoadingFixtureWhichIsServiceLocatorAware()
     {
         $fixtureClassName = 'DoctrineDataFixtureTest\TestAsset\Fixtures\HasSL\FixtureA';
-        $serviceLocator = new ServiceManager(new ServiceManagerConfig());
+        $serviceLocator = new ServiceManager([]);
         
         $loader = new ServiceLocatorAwareLoader($serviceLocator);
         $loader->loadFromDirectory(__DIR__ . '/../TestAsset/Fixtures/HasSL');
@@ -68,7 +48,6 @@ class ServiceLocatorAwareLoaderTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey($fixtureClassName, $fixtures);
         $fixture = $fixtures[$fixtureClassName];
         $this->assertInstanceOf('Doctrine\Common\DataFixtures\FixtureInterface', $fixture);
-        $this->assertInstanceOf('Zend\ServiceManager\ServiceLocatorAwareInterface', $fixture);
         $this->assertSame($serviceLocator, $fixture->getServiceLocator());
     }
 }
