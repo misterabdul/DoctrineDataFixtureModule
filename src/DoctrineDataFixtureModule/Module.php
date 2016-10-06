@@ -45,13 +45,13 @@ class Module implements
      */
     public function getAutoloaderConfig()
     {
-        return array(
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
+        return [
+            'Zend\Loader\StandardAutoloader' => [
+                'namespaces' => [
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -75,9 +75,9 @@ class Module implements
             $importCommand->setEntityManager($em);
             $importCommand->setPath($paths);
             ConsoleRunner::addCommands($cli);
-            $cli->addCommands(array(
+            $cli->addCommands([
                 $importCommand
-            ));
+            ]);
         });
     }
 
@@ -94,10 +94,10 @@ class Module implements
      */
     public function getServiceConfig()
     {
-        return array(
-            'factories' => array(
+        return [
+            'factories' => [
                 'doctrine.configuration.fixtures' => new FixtureFactory('fixtures_default'),
-            ),
-        );
+            ],
+        ];
     }
 }

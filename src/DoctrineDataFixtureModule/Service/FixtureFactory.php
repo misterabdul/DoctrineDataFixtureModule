@@ -35,10 +35,10 @@ class FixtureFactory implements FactoryInterface
     {
         /** @var $options \DoctrineORMModule\Options\DBALConnection */
         $options = $this->getOptions($container, 'fixtures');
-        
+
         return $options;
     }
-    
+
     /**
      * Gets options from configuration based on name.
      *
@@ -51,8 +51,8 @@ class FixtureFactory implements FactoryInterface
     public function getOptions(ContainerInterface $sl, $key)
     {
         $options = $sl->get('Configuration');
-        if (!isset($options['data-fixture'])) {
-            return array();
+        if (! isset($options['data-fixture'])) {
+            return [];
         }
 
         return $options['data-fixture'];

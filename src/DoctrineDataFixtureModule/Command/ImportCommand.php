@@ -45,7 +45,7 @@ class ImportCommand extends Command
     protected $paths;
 
     protected $em;
-    
+
     /**
      * Service Locator instance
      * @var Zend\ServiceManager\ServiceLocatorInterface
@@ -53,7 +53,7 @@ class ImportCommand extends Command
     protected $serviceLocator;
 
     const PURGE_MODE_TRUNCATE = 2;
-    
+
     public function __construct(ServiceLocatorInterface $serviceLocator)
     {
         $this->serviceLocator = $serviceLocator;
@@ -67,7 +67,7 @@ class ImportCommand extends Command
         $this->setName('data-fixture:import')
             ->setDescription('Import Data Fixtures')
             ->setHelp(
-<<<EOT
+                <<<EOT
 The import command Imports data-fixtures
 EOT
             )
@@ -94,7 +94,7 @@ EOT
 
     public function setPath($paths)
     {
-        $this->paths=$paths;
+        $this->paths = $paths;
     }
 
     public function setEntityManager($em)
