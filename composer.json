@@ -1,12 +1,14 @@
 {
     "name": "aqilix/doctrine-data-fixture-module",
-    "description": "Zend Framework 2 Module that provides Doctrine Data-Fixture functionality",
+    "description": "Zend Framework 3 Module that provides Doctrine Data-Fixture functionality",
     "type": "library",
     "license": "MIT",
     "keywords": [
         "doctrine",
         "data-fixture",
         "module",
+        "php7",
+        "zf3",
         "zf2"
     ],
     "homepage": "http://www.doctrine-project.org/",
@@ -44,14 +46,20 @@
         "phpunit/phpunit": "^5.5",
         "squizlabs/php_codesniffer": "^2.6"
     },
-    "autoload": {
-        "psr-4": {
-            "DoctrineDataFixtureModule\\": "src/DoctrineDataFixtureModule/"
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.0.5-dev",
+            "dev-develop": "0.0.6-dev"
         }
     },
     "scripts": {
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "test": "phpunit"
+    },
+    "autoload": {
+        "psr-4": {
+            "DoctrineDataFixtureModule\\": "src/DoctrineDataFixtureModule/"
+        }
     }
 }
