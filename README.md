@@ -1,17 +1,16 @@
-# DoctrineDataFixture Module for Zend Framework 3
+# DoctrineDataFixture Module for Laminas
 
-This is fork from [Houndog/DoctrineDataFixtureModule](https://github.com/Hounddog/DoctrineDataFixtureModule). This repository crreated caused by the old repo still using old Doctrine version and old Zend Event Manager, Module Manager and Service Manager (Zend Framework 2).
+This is fork from [Aqilix/DoctrineDataFixtureModule](https://github.com/aqilix/DoctrineDataFixtureModule). This repository created caused by the old repo still using old Doctrine version and old Zend Event Manager, Module Manager and Service Manager (Zend Framework 3).
 
 ## Introduction
 
-The DoctrineDataFixtureModule module intends to integrate Doctrine 2 data-fixture with Zend Framework 3 quickly
+The DoctrineDataFixtureModule module intends to integrate Doctrine 2 data-fixture with Laminas quickly
 and easily. The following features are intended to work out of the box:
 
-  - Doctrine ORM support
-  - Multiple ORM entity managers
-  - Multiple DBAL connections
-  - Support reuse existing PDO connections in DBAL
-
+- Doctrine ORM support
+- Multiple ORM entity managers
+- Multiple DBAL connections
+- Support reuse existing PDO connections in DBAL
 
 ## Installation
 
@@ -19,7 +18,7 @@ Installation of this module uses composer. For composer documentation, please re
 [getcomposer.org](http://getcomposer.org/).
 
 ```sh
-$ php composer.phar require aqilix/doctrine-data-fixture-module:0.0.*
+$ composer require misterabdul/doctrine-data-fixture-module
 ```
 
 Then open `config/modules.config.php` and add `DoctrineDataFixtureModule` to your `modules`
@@ -40,9 +39,10 @@ return [
 ## Usage
 
 #### Command Line
+
 Access the Doctrine command line as following
 
-##Import
 ```sh
-./vendor/bin/doctrine-module data-fixture:import 
+# Import
+$ ./vendor/bin/doctrine-module data-fixture:import 
 ```
