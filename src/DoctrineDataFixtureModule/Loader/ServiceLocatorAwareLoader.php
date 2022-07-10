@@ -16,11 +16,10 @@
  * and is licensed under the LGPL. For more information, see
  * <http://www.doctrine-project.org>.
  */
+
 namespace DoctrineDataFixtureModule\Loader;
 
 use Doctrine\Common\DataFixtures\Loader as BaseLoader;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Doctrine\Common\DataFixtures\FixtureInterface;
 
 /**
  * Doctrine fixture loader which is ZF2 Service Locator-aware
@@ -33,11 +32,14 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 class ServiceLocatorAwareLoader extends BaseLoader
 {
     /**
-     * @var ServiceLocatorInterface
+     * @var \Laminas\ServiceManager\ServiceLocatorInterface
      */
     protected $serviceLocator;
 
-    public function __construct(ServiceLocatorInterface $serviceLocator)
+    /**
+     * @param  \Laminas\ServiceManager\ServiceLocatorInterface  $serviceLocator
+     */
+    public function __construct($serviceLocator)
     {
         $this->serviceLocator = $serviceLocator;
     }
@@ -45,11 +47,11 @@ class ServiceLocatorAwareLoader extends BaseLoader
     /**
      * Add a fixture object instance to the loader.
      *
-     * @param FixtureInterface $fixture
+     * @param  \Doctrine\Common\DataFixtures\FixtureInterface  $fixture
      */
-    public function addFixture(FixtureInterface $fixture)
+    public function addFixture($fixture)
     {
-        $fixture->setServiceLocator($this->serviceLocator);
+        // $fixture->setServiceLocator($this->serviceLocator);
         parent::addFixture($fixture);
     }
 }

@@ -19,8 +19,7 @@
 
 namespace DoctrineDataFixtureModule\Service;
 
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for Fixtures
@@ -31,10 +30,15 @@ use Interop\Container\ContainerInterface;
  */
 class FixtureFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    /**
+     * @param  \Psr\Container\ContainerInterface  $container
+     * @param  string  $requestedName
+     * @param  array|null  $options
+     */
+    public function __invoke($container, $requestedName, $options = null)
     {
         /** @var $options \DoctrineORMModule\Options\DBALConnection */
-        $options = $this->getOptions($container, 'fixtures');
+        $options = $this->getOptions($container, 'data-fixture');
 
         return $options;
     }
@@ -42,19 +46,19 @@ class FixtureFactory implements FactoryInterface
     /**
      * Gets options from configuration based on name.
      *
-     * @param  ServiceLocatorInterface      $sl
-     * @param  string                       $key
-     * @param  null|string                  $name
+     * @param  \Psr\Container\ContainerInterface  $container
+     * @param  string  $key
      * @return \Zend\Stdlib\AbstractOptions
-     * @throws \RuntimeException
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Psr\Container\ContainerExceptionInterface
      */
-    public function getOptions(ContainerInterface $sl, $key)
+    public function getOptions($container, $key)
     {
-        $options = $sl->get('Configuration');
-        if (! isset($options['data-fixture'])) {
+        $options = $container->get('Configuration');
+        if (! isset($options[$key])) {
             return [];
         }
 
-        return $options['data-fixture'];
+        return $options[$key];
     }
 }

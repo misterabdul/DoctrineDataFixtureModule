@@ -16,12 +16,13 @@
  * and is licensed under the LGPL. For more information, see
  * <http://www.doctrine-project.org>.
  */
+
 namespace DoctrineDataFixtureTest\Loader;
 
-use Doctrine\Common\DataFixtures\Loader;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Mvc\Service\ServiceManagerConfig;
+use Doctrine\Common\DataFixtures\FixtureInterface;
 use DoctrineDataFixtureModule\Loader\ServiceLocatorAwareLoader;
+use Laminas\ServiceManager\ServiceManager;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test Service Locator-aware fixture loader
@@ -30,7 +31,7 @@ use DoctrineDataFixtureModule\Loader\ServiceLocatorAwareLoader;
  * @link    www.doctrine-project.org
  * @author  Adam Lundrigan <adam@lundrigan.ca>
  */
-class ServiceLocatorAwareLoaderTest extends \PHPUnit_Framework_TestCase
+class ServiceLocatorAwareLoaderTest extends TestCase
 {
     /**
      * Ensures that the Service Locator instance passed into the ServiceLocatorAwareLoader
@@ -40,14 +41,14 @@ class ServiceLocatorAwareLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $fixtureClassName = 'DoctrineDataFixtureTest\TestAsset\Fixtures\HasSL\FixtureA';
         $serviceLocator = new ServiceManager([]);
-        
+
         $loader = new ServiceLocatorAwareLoader($serviceLocator);
         $loader->loadFromDirectory(__DIR__ . '/../TestAsset/Fixtures/HasSL');
         $fixtures = $loader->getFixtures();
-    
+
         $this->assertArrayHasKey($fixtureClassName, $fixtures);
         $fixture = $fixtures[$fixtureClassName];
-        $this->assertInstanceOf('Doctrine\Common\DataFixtures\FixtureInterface', $fixture);
+        $this->assertInstanceOf(FixtureInterface::class, $fixture);
         $this->assertSame($serviceLocator, $fixture->getServiceLocator());
     }
 }

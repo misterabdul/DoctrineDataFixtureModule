@@ -1,39 +1,40 @@
 <?php
+
 namespace DoctrineDataFixtureTest\TestAsset\Fixtures\HasSL;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 class FixtureA implements FixtureInterface
 {
     /**
-     * @var ServiceLocatorInterface
+     * @var \Laminas\ServiceManager\ServiceLocatorInterface|null
      */
     protected $serviceLocator = null;
 
-
-    public function load(ObjectManager $manager)
+    /**
+     * @param  \Doctrine\Persistence\ObjectManager  $manager
+     */
+    public function load($manager)
     {
     }
-    
+
     /**
      * Set service locator
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param  \Laminas\ServiceManager\ServiceLocatorInterface  $serviceLocator
      * @return mixed
      */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    public function setServiceLocator($serviceLocator)
     {
         $this->serviceLocator = $serviceLocator;
-    
+
         return $this;
     }
-    
+
     /**
      * Get service locator
      *
-     * @return ServiceLocatorInterface
+     * @return \Laminas\ServiceManager\ServiceLocatorInterface
      */
     public function getServiceLocator()
     {

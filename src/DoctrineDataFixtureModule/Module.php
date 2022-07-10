@@ -19,14 +19,13 @@
 
 namespace DoctrineDataFixtureModule;
 
-use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
-use Zend\ModuleManager\Feature\ServiceProviderInterface;
-use Zend\ModuleManager\Feature\ConfigProviderInterface;
-use Zend\EventManager\EventInterface;
-use Zend\ModuleManager\ModuleManager;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use DoctrineDataFixtureModule\Command\ImportCommand;
 use DoctrineDataFixtureModule\Service\FixtureFactory;
+use Laminas\EventManager\EventInterface;
+use Laminas\ModuleManager\Feature\AutoloaderProviderInterface;
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\ModuleManager\Feature\ServiceProviderInterface;
 
 /**
  * Base module for Doctrine Data Fixture.
@@ -41,12 +40,12 @@ class Module implements
     ConfigProviderInterface
 {
     /**
-     * {@inheritDoc}
+     * @return array
      */
     public function getAutoloaderConfig()
     {
         return [
-            'Zend\Loader\StandardAutoloader' => [
+            'Laminas\Loader\StandardAutoloader' => [
                 'namespaces' => [
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__
                 ],
@@ -55,18 +54,16 @@ class Module implements
     }
 
     /**
-     * {@inheritDoc}
+     * @param  \Laminas\ModuleManager\ModuleManager  $e
      */
-    public function init(ModuleManager $e)
+    public function init($e)
     {
         $events = $e->getEventManager()->getSharedManager();
 
         // Attach to helper set event and load the entity manager helper.
         $events->attach('doctrine', 'loadCli.post', function (EventInterface $e) {
-            /* @var $cli \Symfony\Component\Console\Application */
             $cli = $e->getTarget();
 
-            /* @var $sm ServiceLocatorInterface */
             $sm = $e->getParam('ServiceManager');
             $em = $cli->getHelperSet()->get('em')->getEntityManager();
             $paths = $sm->get('doctrine.configuration.fixtures');
@@ -75,14 +72,12 @@ class Module implements
             $importCommand->setEntityManager($em);
             $importCommand->setPath($paths);
             ConsoleRunner::addCommands($cli);
-            $cli->addCommands([
-                $importCommand
-            ]);
+            $cli->addCommands([$importCommand]);
         });
     }
 
     /**
-     * {@inheritDoc}
+     * @return array
      */
     public function getConfig()
     {
@@ -90,7 +85,7 @@ class Module implements
     }
 
     /**
-     * {@inheritDoc}
+     * @return array
      */
     public function getServiceConfig()
     {

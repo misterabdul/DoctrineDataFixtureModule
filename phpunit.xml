@@ -10,16 +10,10 @@
     stopOnFailure="false"
     processIsolation="false"
     backupGlobals="false"
-    syntaxCheck="true"
 >
     <testsuite name="DoctrineDataFixture Module Tests">
         <directory>./tests/DoctrineDataFixtureTest</directory>
     </testsuite>
-    <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
     <logging>
         <log
             type="coverage-clover"
